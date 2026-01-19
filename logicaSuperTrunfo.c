@@ -139,6 +139,7 @@ int main() {
     printf("6 - PIB per Capita\n");
     printf("7 - Super Poder\n");
     printf("8 - Comparação Completa (todos os atributos)\n");
+    printf("9 - Comparação com Dois Atributos (escolha 2 atributos)\n");
     printf("0 - Sair\n");
     printf("\nOpção: ");
     scanf("%d", &opcaoMenu);
@@ -331,6 +332,122 @@ int main() {
           printf("\n*** Carta %s VENCE por Super Poder! ***\n", carta1.codigo);
         } else {
           printf("\n*** Carta %s VENCE por Super Poder! ***\n", carta2.codigo);
+        }
+        break;
+
+      case 9: // Comparação com Dois Atributos
+        {
+          int atributo1, atributo2;
+          
+          printf("=== COMPARAÇÃO COM DOIS ATRIBUTOS ===\n\n");
+          printf("Escolha o primeiro atributo:\n");
+          printf("1 - População\n");
+          printf("2 - Área\n");
+          printf("3 - PIB\n");
+          printf("4 - Pontos Turísticos\n");
+          printf("5 - Densidade Populacional (menor vence)\n");
+          printf("6 - PIB per Capita\n");
+          printf("7 - Super Poder\n");
+          printf("\nPrimeiro atributo: ");
+          scanf("%d", &atributo1);
+          
+          printf("\nEscolha o segundo atributo:\n");
+          printf("1 - População\n");
+          printf("2 - Área\n");
+          printf("3 - PIB\n");
+          printf("4 - Pontos Turísticos\n");
+          printf("5 - Densidade Populacional (menor vence)\n");
+          printf("6 - PIB per Capita\n");
+          printf("7 - Super Poder\n");
+          printf("\nSegundo atributo: ");
+          scanf("%d", &atributo2);
+          
+          printf("\n=== ANÁLISE DUAL ===\n");
+          
+          // Variáveis para armazenar resultados de cada atributo
+          int resultadoAtrib1 = 0; // -1 = carta2 vence, 0 = empate, 1 = carta1 vence
+          int resultadoAtrib2 = 0;
+          
+          // Avaliação do primeiro atributo usando operador ternário
+          resultadoAtrib1 = 
+            (atributo1 == 1) ? (carta1.populacao > carta2.populacao ? 1 : (carta1.populacao < carta2.populacao ? -1 : 0)) :
+            (atributo1 == 2) ? (carta1.area > carta2.area ? 1 : (carta1.area < carta2.area ? -1 : 0)) :
+            (atributo1 == 3) ? (carta1.pib > carta2.pib ? 1 : (carta1.pib < carta2.pib ? -1 : 0)) :
+            (atributo1 == 4) ? (carta1.pontosTuristicos > carta2.pontosTuristicos ? 1 : (carta1.pontosTuristicos < carta2.pontosTuristicos ? -1 : 0)) :
+            (atributo1 == 5) ? (carta1.densidadePopulacional < carta2.densidadePopulacional ? 1 : (carta1.densidadePopulacional > carta2.densidadePopulacional ? -1 : 0)) :
+            (atributo1 == 6) ? (carta1.pibPerCapita > carta2.pibPerCapita ? 1 : (carta1.pibPerCapita < carta2.pibPerCapita ? -1 : 0)) :
+            (atributo1 == 7) ? (carta1.superPoder > carta2.superPoder ? 1 : (carta1.superPoder < carta2.superPoder ? -1 : 0)) : 0;
+          
+          // Avaliação do segundo atributo usando operador ternário
+          resultadoAtrib2 = 
+            (atributo2 == 1) ? (carta1.populacao > carta2.populacao ? 1 : (carta1.populacao < carta2.populacao ? -1 : 0)) :
+            (atributo2 == 2) ? (carta1.area > carta2.area ? 1 : (carta1.area < carta2.area ? -1 : 0)) :
+            (atributo2 == 3) ? (carta1.pib > carta2.pib ? 1 : (carta1.pib < carta2.pib ? -1 : 0)) :
+            (atributo2 == 4) ? (carta1.pontosTuristicos > carta2.pontosTuristicos ? 1 : (carta1.pontosTuristicos < carta2.pontosTuristicos ? -1 : 0)) :
+            (atributo2 == 5) ? (carta1.densidadePopulacional < carta2.densidadePopulacional ? 1 : (carta1.densidadePopulacional > carta2.densidadePopulacional ? -1 : 0)) :
+            (atributo2 == 6) ? (carta1.pibPerCapita > carta2.pibPerCapita ? 1 : (carta1.pibPerCapita < carta2.pibPerCapita ? -1 : 0)) :
+            (atributo2 == 7) ? (carta1.superPoder > carta2.superPoder ? 1 : (carta1.superPoder < carta2.superPoder ? -1 : 0)) : 0;
+          
+          // Nomes dos atributos para exibição
+          char* nomesAtributos[] = {"", "População", "Área", "PIB", "Pontos Turísticos", "Densidade Populacional", "PIB per Capita", "Super Poder"};
+          
+          // Exibir resultados individuais
+          printf("\nAtributo 1 (%s):\n", nomesAtributos[atributo1]);
+          switch (atributo1) {
+            case 1: printf("  %s: %d | %s: %d\n", carta1.codigo, carta1.populacao, carta2.codigo, carta2.populacao); break;
+            case 2: printf("  %s: %.2f km² | %s: %.2f km²\n", carta1.codigo, carta1.area, carta2.codigo, carta2.area); break;
+            case 3: printf("  %s: %.2f | %s: %.2f\n", carta1.codigo, carta1.pib, carta2.codigo, carta2.pib); break;
+            case 4: printf("  %s: %d | %s: %d\n", carta1.codigo, carta1.pontosTuristicos, carta2.codigo, carta2.pontosTuristicos); break;
+            case 5: printf("  %s: %.2f | %s: %.2f (menor vence)\n", carta1.codigo, carta1.densidadePopulacional, carta2.codigo, carta2.densidadePopulacional); break;
+            case 6: printf("  %s: %.6f | %s: %.6f\n", carta1.codigo, carta1.pibPerCapita, carta2.codigo, carta2.pibPerCapita); break;
+            case 7: printf("  %s: %.2f | %s: %.2f\n", carta1.codigo, carta1.superPoder, carta2.codigo, carta2.superPoder); break;
+          }
+          printf("  Resultado: %s\n", resultadoAtrib1 == 1 ? "Carta 1 vence" : (resultadoAtrib1 == -1 ? "Carta 2 vence" : "Empate"));
+          
+          printf("\nAtributo 2 (%s):\n", nomesAtributos[atributo2]);
+          switch (atributo2) {
+            case 1: printf("  %s: %d | %s: %d\n", carta1.codigo, carta1.populacao, carta2.codigo, carta2.populacao); break;
+            case 2: printf("  %s: %.2f km² | %s: %.2f km²\n", carta1.codigo, carta1.area, carta2.codigo, carta2.area); break;
+            case 3: printf("  %s: %.2f | %s: %.2f\n", carta1.codigo, carta1.pib, carta2.codigo, carta2.pib); break;
+            case 4: printf("  %s: %d | %s: %d\n", carta1.codigo, carta1.pontosTuristicos, carta2.codigo, carta2.pontosTuristicos); break;
+            case 5: printf("  %s: %.2f | %s: %.2f (menor vence)\n", carta1.codigo, carta1.densidadePopulacional, carta2.codigo, carta2.densidadePopulacional); break;
+            case 6: printf("  %s: %.6f | %s: %.6f\n", carta1.codigo, carta1.pibPerCapita, carta2.codigo, carta2.pibPerCapita); break;
+            case 7: printf("  %s: %.2f | %s: %.2f\n", carta1.codigo, carta1.superPoder, carta2.codigo, carta2.superPoder); break;
+          }
+          printf("  Resultado: %s\n", resultadoAtrib2 == 1 ? "Carta 1 vence" : (resultadoAtrib2 == -1 ? "Carta 2 vence" : "Empate"));
+          
+          // Lógica aninhada para determinar vencedor final
+          // A carta vence se: ganha em ambos OU (ganha no primeiro E empata no segundo) OU (empata no primeiro E ganha no segundo)
+          char* vencedorFinal = 
+            (resultadoAtrib1 == 1 && resultadoAtrib2 == 1) ? carta1.codigo :
+            (resultadoAtrib1 == -1 && resultadoAtrib2 == -1) ? carta2.codigo :
+            (resultadoAtrib1 == 1 && resultadoAtrib2 == 0) ? carta1.codigo :
+            (resultadoAtrib1 == 0 && resultadoAtrib2 == 1) ? carta1.codigo :
+            (resultadoAtrib1 == -1 && resultadoAtrib2 == 0) ? carta2.codigo :
+            (resultadoAtrib1 == 0 && resultadoAtrib2 == -1) ? carta2.codigo :
+            (resultadoAtrib1 == 1 && resultadoAtrib2 == -1) ? "EMPATE TÉCNICO" :
+            (resultadoAtrib1 == -1 && resultadoAtrib2 == 1) ? "EMPATE TÉCNICO" :
+            "EMPATE TOTAL";
+          
+          int pontosC1 = (resultadoAtrib1 == 1 ? 1 : 0) + (resultadoAtrib2 == 1 ? 1 : 0);
+          int pontosC2 = (resultadoAtrib1 == -1 ? 1 : 0) + (resultadoAtrib2 == -1 ? 1 : 0);
+          
+          printf("\n--- RESULTADO FINAL ---\n");
+          printf("Pontuação:\n");
+          printf("  Carta %s: %d ponto(s)\n", carta1.codigo, pontosC1);
+          printf("  Carta %s: %d ponto(s)\n", carta2.codigo, pontosC2);
+          
+          // Determinação final usando operadores ternários e lógica aninhada
+          printf("\n");
+          (pontosC1 > pontosC2) ? 
+            printf("*** VENCEDOR: Carta %s (venceu em mais atributos) ***\n", carta1.codigo) :
+          (pontosC2 > pontosC1) ? 
+            printf("*** VENCEDOR: Carta %s (venceu em mais atributos) ***\n", carta2.codigo) :
+          (resultadoAtrib1 == 1 || resultadoAtrib2 == 1) ?
+            printf("*** VENCEDOR: Carta %s (critério de desempate: venceu em pelo menos um) ***\n", carta1.codigo) :
+          (resultadoAtrib1 == -1 || resultadoAtrib2 == -1) ?
+            printf("*** VENCEDOR: Carta %s (critério de desempate: venceu em pelo menos um) ***\n", carta2.codigo) :
+            printf("*** EMPATE TOTAL - Nenhuma carta se sobressaiu ***\n");
         }
         break;
 
